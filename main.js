@@ -55,7 +55,8 @@ class scoreboard {
 //   []
 // );
 
-myScoreboard = new scoreboard(0, 6, 0, "", [], [], []);
+let myScoreboard = new scoreboard(0, 6, 0, "", [], [], []);
+
 
 
 // random word fn
@@ -71,6 +72,7 @@ const getWord = () => {
   // console.log('🎸', myScoreboard.word);
 };
 
+
 //   clear/reset scoreboard
 // fn clearBoard and get 'random' word from array of words
 const clearBoard = () => {
@@ -79,18 +81,17 @@ const clearBoard = () => {
   return myScoreboard;
 };
 
+
 // fn gameOver
 const gameOver = () => {
   // test for win if sixth attempt
-  if (myScoreboard.numGuesses === 6) {
+  if (myScoreboard.guessesRemaining === 0) {
     // console.log("🎈 :", myScoreboard.numGuesses, " game over");
     return true;
-
     // test for win if guessed letters = word
   } else if (myScoreboard.word === myScoreboard.guess.join("")) {
     // console.log("🏈 ", myScoreboard.guessedLetters.join(""));
     return true;
-
     // else return false, so game can resume
   } else {
     // console.log("🛹 ", myScoreboard.guessedLetters.join(""));
@@ -98,26 +99,37 @@ const gameOver = () => {
   }
 };
 
+
+
 // fn to check if the user iput letter matches the WordArr & update guess and guessedLetters
 const checkLetters = (letter) => {
   let arr = myScoreboard.wordArr;
-  const y = myScoreboard.guess;
-  console.log(y);
+  // const y = myScoreboard.guess;
+  // console.log(y);
   // update guessed letters array
   myScoreboard.guessedLetters.push(letter);
   // loop through the word arrary for a match of the guessed letter
   //     and update the guesed letter in approriate position for easy display
-  arr.forEach((x, i) => {
+  let isLetter = false;
+  isLetter = arr.forEach((x, i) => {
     if (x === letter) {
       myScoreboard.guess[i] = x; // works with multiple instances of letter
       console.log(x, " was a correct letter");
+      return true;
+    } else {
+      return false;
     }
   });
-
   // need to figure out how to test if a there was a letter  correctly 
-  //    guessed to return true/fasle ?
-  console.log("🌭", "🌭");
+  //    guessed to return true/fasle so we can update remaing guesses correctly
+  console.log("🌭",isLetter, "🌭");
+  if (isLetter === false) {
+    //   update myScoreboard.guessesRemaining with GuessesRemaining - 1
+    myScoreboard.guessesRemaining = myScoreboard.guessesRemaining - 1;
+  };
 };
+
+
 
 // fn to print the game board, may need better looks
 const printBoard = () => {
@@ -152,9 +164,6 @@ const printBoard = () => {
 
 // main game
 const hangman = (guess) => {
-  // console.log("🌍", myScoreboard.guessesRemaining); // test
-  //   update myScoreboard.guessesRemaining with GuessesRemaining - 1
-  myScoreboard.guessesRemaining = myScoreboard.guessesRemaining - 1;
   //   update myScoreboard.numGuesses with numGuesses + 1
   myScoreboard.numGuesses = myScoreboard.numGuesses + 1;
   // console.log("🌈", myScoreboard.guessesRemaining); // verify
@@ -164,9 +173,13 @@ const hangman = (guess) => {
 
   // call gameOver()
   if (gameOver()) {
-    console.log(" ");
+    console.log(" Word =", myScoreboard.word);
     console.log(" ");
     console.log(" Game Over");
+    console.log(" ");
+    console.log(" ");
+    console.log(" < <  New Game  > >");
+    clearBoard();
     console.log(" ");
   } 
 };
@@ -192,6 +205,9 @@ const getPrompt = () => {
 //   update DOM hangman image
 //   update DOM to change button color
 
+clearBoard();
+getPrompt();
+
 //consoles and fn calls for testing
 // getWord();
 // console.log("🎰 ", myScoreboard);
@@ -205,35 +221,3 @@ const getPrompt = () => {
 // console.log("🏆 ", myScoreboard);
 
 
-
-
-// Tests
-
-// if (typeof describe === 'function') {
-//   solution = 'abcd';
-//   describe('#mastermind()', () => {
-//     it('should register a guess and generate hints', () => {
-//       mastermind('aabb');
-//       assert.equal(board.length, 1);
-//     });
-//     it('should be able to detect a win', () => {
-//       assert.equal(mastermind(solution), '🟢 🟢  You Win');
-//     });
-//   });
-
-//   describe('#generateHint()', () => {
-//     it('should generate hints', () => {
-//       assert.equal(generateHint('abdc'), '2-2');
-//     });
-//     it('should generate hints if solution has duplicates', () => {
-//       assert.equal(generateHint('aabb'), '1-1');
-//     });
-
-//   });
-
-// } else {
-
-//   generateSolution();
-// }
-clearBoard();
-getPrompt();
