@@ -33,7 +33,8 @@ class scoreboard {
     word,
     wordArr,
     guess,
-    guessedLetters
+    guessedLetters,
+    isCorrect
   ) {
     this.numGuesses = numGuesses;
     this.guessesRemaining = guessesRemaining;
@@ -42,6 +43,7 @@ class scoreboard {
     this.wordArr = wordArr;
     this.guess = guess;
     this.guessedLetters = guessedLetters;
+    this.isCorrect = isCorrect;
   }
 }
 
@@ -55,7 +57,7 @@ class scoreboard {
 //   []
 // );
 
-let myScoreboard = new scoreboard(0, 6, 0, "", [], [], []);
+let myScoreboard = new scoreboard(0, 6, 0, "", [], [], [], false);
 
 
 
@@ -75,9 +77,19 @@ const getWord = () => {
 
 //   clear/reset scoreboard
 // fn clearBoard and get 'random' word from array of words
-const clearBoard = () => {
-  myScoreboard = new scoreboard(0, 6, 0, "", [], [], []);
+const clearBoard = (clearDOM) => {
+  myScoreboard = new scoreboard(0, 6, 0, "", [], [], [], false);
   getWord();
+
+  // Update DOM to reset button color, if a true was passed thorugh the parameter
+  // in the html the onClick=clearBoard(true)
+  // this is to not interfere with terminal game 
+  if (clearDOM === true) {
+    // update button color in CSS (or maybe refresh window)
+
+  };
+
+
   return myScoreboard;
 };
 
@@ -103,27 +115,29 @@ const gameOver = () => {
 
 // fn to check if the user iput letter matches the WordArr & update guess and guessedLetters
 const checkLetters = (letter) => {
-  let arr = myScoreboard.wordArr;
-  // const y = myScoreboard.guess;
+  myScoreboard.isCorrect = false // initialize to false by default
+  // let arr = myScoreboard.wordArr;
+  // const y = false;
   // console.log(y);
   // update guessed letters array
   myScoreboard.guessedLetters.push(letter);
   // loop through the word arrary for a match of the guessed letter
   //     and update the guesed letter in approriate position for easy display
-  let isLetter = false;
-  isLetter = arr.forEach((x, i) => {
+  // const isValue = 
+  myScoreboard.wordArr.forEach((x, i) => {
     if (x === letter) {
       myScoreboard.guess[i] = x; // works with multiple instances of letter
-      console.log(x, " was a correct letter");
-      return true;
-    } else {
-      return false;
+      myScoreboard.isCorrect = true;
+      // return true;
+      // console.log(x, " was a correct letter");
     }
   });
+
   // need to figure out how to test if a there was a letter  correctly 
   //    guessed to return true/fasle so we can update remaing guesses correctly
-  console.log("🌭",isLetter, "🌭");
-  if (isLetter === false) {
+  // console.log("🌭",myScoreboard.isCorrect , "🌭");
+  console.log();
+  if (myScoreboard.isCorrect === false) {
     //   update myScoreboard.guessesRemaining with GuessesRemaining - 1
     myScoreboard.guessesRemaining = myScoreboard.guessesRemaining - 1;
   };
@@ -135,15 +149,15 @@ const checkLetters = (letter) => {
 const printBoard = () => {
   // the printLine2 is Solely to print a hanged man
   let printLine2 = "";
-  if (myScoreboard.guessesRemaining === 5) {
+  if (myScoreboard.guessesRemaining === 1) {
     printLine2 = "👨 💪 💪 🦵 🦵";
-  } else if (myScoreboard.guessesRemaining === 4) {
+  } else if (myScoreboard.guessesRemaining === 2) {
     printLine2 = "👨 💪 💪 🦵";
   } else if (myScoreboard.guessesRemaining === 3) {
     printLine2 = "👨 💪 💪";
-  } else if (myScoreboard.guessesRemaining === 2) {
+  } else if (myScoreboard.guessesRemaining === 4) {
     printLine2 = "👨 💪";
-  } else if (myScoreboard.guessesRemaining === 1) {
+  } else if (myScoreboard.guessesRemaining === 5) {
     printLine2 = "👨";
   }
   console.log(myScoreboard.guess.join(" "));
@@ -156,6 +170,16 @@ const printBoard = () => {
     "⛔",
     myScoreboard.guessedLetters.join(" ")
   );
+};
+
+// fn to update DOM
+const updateHTML = () => {
+  // 
+
+  // h3 = myScoreboard.guessedLetter.join(" ")
+  // if (gameOver()) {
+    //Alert for gameOver()
+  // }
 };
 
 // fn getScore
@@ -192,6 +216,21 @@ const getPrompt = () => {
   });
 };
 
+
+// on btnClick function from the DOM
+const btnClick = (guess) => {
+  updateHTML();
+  hangman(guess);
+  // test for gameOver = true, then Alerts user and clears board
+  // if (gameOver()) {
+    // Alert for game over
+
+    // clear board, passing true since DOM interactions
+    clearBoard(true);
+  // } 
+};
+
+
 //     if return of checkLetters() = true
 //        if myScoreboard.guessesremaining > 0
 //          update myScoreboard.score to add the returned resultfrom getScore()
@@ -207,6 +246,7 @@ const getPrompt = () => {
 
 clearBoard();
 getPrompt();
+// btnClick(); // might be needed for scoreboard, but it also might interfere 
 
 //consoles and fn calls for testing
 // getWord();
