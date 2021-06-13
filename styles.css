@@ -1,0 +1,27 @@
+body {
+  background-color: cornflowerblue;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.playContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.letter {
+  background-color: rgb(161, 214, 214);
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
