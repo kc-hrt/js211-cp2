@@ -226,7 +226,7 @@ const btnClick = (guess) => {
     // Alert for game over
 
     // clear board, passing true since DOM interactions
-    clearBoard(true);
+    // clearBoard(true);
   // } 
 };
 
