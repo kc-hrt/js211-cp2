@@ -1,10 +1,10 @@
 // const assert = require('assert');
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-console.clear();
+// const readline = require('readline');
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
+// console.clear();
 
 // array of words
 let words = [
@@ -136,7 +136,7 @@ const checkLetters = (letter) => {
   // need to figure out how to test if a there was a letter  correctly 
   //    guessed to return true/fasle so we can update remaing guesses correctly
   // console.log("🌭",myScoreboard.isCorrect , "🌭");
-  console.log();
+  // console.log();
   if (myScoreboard.isCorrect === false) {
     //   update myScoreboard.guessesRemaining with GuessesRemaining - 1
     myScoreboard.guessesRemaining = myScoreboard.guessesRemaining - 1;
@@ -172,14 +172,29 @@ const printBoard = () => {
   );
 };
 
-// fn to update DOM
-const updateHTML = () => {
-  // 
+// // fn to update DOM
+// const updateHTML = () => {
+//   // 
 
+//   // h3 = myScoreboard.guessedLetter.join(" ")
+//   // if (gameOver()) {
+//     //Alert for gameOver()
+//   // }
+// };
+
+// fn to update DOM
+const updateHTML = () => { 
   // h3 = myScoreboard.guessedLetter.join(" ")
-  // if (gameOver()) {
-    //Alert for gameOver()
-  // }
+  // target element and assign it a variable
+  let guessLetters = document.getElementById('guessedLetters');
+
+  // set the innerHTML of that element to the guessedLetters of myScoreboard
+  guessLetters.innerText = myScoreboard.guessedLetters.join(" ");
+  
+  if (gameOver()) {
+    // Alert for gameOver()
+    letters.innerText += 'Game Over' ;
+  }
 };
 
 // fn getScore
@@ -208,28 +223,31 @@ const hangman = (guess) => {
   } 
 };
 
-const getPrompt = () => {
-  printBoard();
-  rl.question("guess: ", (guess) => {
-    hangman(guess);
-    getPrompt();
-  });
-};
+// const getPrompt = () => {
+//   printBoard();
+//   rl.question("guess: ", (guess) => {
+//     hangman(guess);
+//     getPrompt();
+//   });
+// };
 
 
-// on btnClick function from the DOM
-const btnClick = (guess) => {
-  updateHTML();
-  hangman(guess);
-  // test for gameOver = true, then Alerts user and clears board
-  // if (gameOver()) {
-    // Alert for game over
+// // on btnClick function from the DOM
+// const btnClick = (guess) => {
+//   updateHTML();
+//   hangman(guess);
+//   // test for gameOver = true, then Alerts user and clears board
+//   // if (gameOver()) {
+//     // Alert for game over
 
-    // clear board, passing true since DOM interactions
-    clearBoard(true);
-  // } 
-};
+//     // clear board, passing true since DOM interactions
+//     clearBoard(true);
+//   // } 
+// };
 
+const btnClick = () => {
+  document.getElementById('guessedLetters').innerHTML = 'hello';
+}
 
 //     if return of checkLetters() = true
 //        if myScoreboard.guessesremaining > 0
@@ -245,7 +263,7 @@ const btnClick = (guess) => {
 //   update DOM to change button color
 
 clearBoard();
-getPrompt();
+// getPrompt();
 // btnClick(); // might be needed for scoreboard, but it also might interfere 
 
 //consoles and fn calls for testing
