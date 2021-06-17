@@ -25,7 +25,7 @@ let words = [
 ];
 
 // class called scoreboard
-class scoreboard {
+class Scoreboard {
   constructor(
     numGuesses,
     guessesRemaining,
@@ -57,7 +57,7 @@ class scoreboard {
 //   []
 // );
 
-let myScoreboard = new scoreboard(0, 6, 0, "", [], [], [], false);
+let myScoreboard = new Scoreboard(0, 6, 0, "", [], [], [], false);
 
 
 
@@ -78,7 +78,7 @@ const getWord = () => {
 //   clear/reset scoreboard
 // fn clearBoard and get 'random' word from array of words
 const clearBoard = (clearDOM) => {
-  myScoreboard = new scoreboard(0, 6, 0, "", [], [], [], false);
+  myScoreboard = new Scoreboard(0, 6, 0, "", [], [], [], false);
   getWord();
 
   // Update DOM to reset button color, if a true was passed thorugh the parameter
@@ -86,13 +86,13 @@ const clearBoard = (clearDOM) => {
   // this is to not interfere with terminal game 
   if (clearDOM === true) {
     // update button color in CSS (or maybe refresh window)
-
+    location.reload()
   };
 
-
-  return myScoreboard;
+  let newWord = document.getElementById('guessedLetters');
+  newWord.innerText = myScoreboard.guess.join(' ');
+  // return myScoreboard;
 };
-
 
 // fn gameOver
 const gameOver = () => {
@@ -183,14 +183,27 @@ const printBoard = () => {
 // };
 
 // fn to update DOM
-const updateHTML = (guess) => { 
-  // h3 = myScoreboard.guessedLetter.join(" ")
-  // target element and assign it a variable
-  let playerGuesses = document.getElementById('guessedLetters');
-  playerGuesses.innerText = guess;
-
+const updateHTML = () => { 
+  // h3 = myScoreboard.guessedLetters.join(" ")
   // set the innerHTML of that element to the guessedLetters of myScoreboard
-  // guessLetters.innerText = myScoreboard.guessedLetters.join(" ");
+  let playerGuesses = document.getElementById('guessedLetters');
+  playerGuesses.innerText = myScoreboard.guess.join(' ');
+
+  let letterBtns = document.querySelectorAll('.letterBtn');
+  let letterBtnsArr = Array.from(letterBtns);
+
+  // for (let i = 0; i < letterBtns.length; i++) {
+  //   letterBtns[i].addEventListener('click', clickedBtn);
+  // }
+  letterBtnsArr.forEach((button) => {
+    button.addEventListener('click', clickedBtn);
+  })
+
+  function clickedBtn() {
+    this.style.backgroundColor = 'rgba(187, 187, 187, 0.644)';
+    this.style.color = 'lightgrey';
+    this.classList.remove('hoverClass');
+  }
 };
 
 // fn getScore
@@ -242,7 +255,11 @@ const hangman = (guess) => {
 // };
 
 const btnClick = (guess) => {
-  updateHTML(guess);
+  hangman(guess);
+  updateHTML();
+  // if (gameOver()) {
+  //   // images function to show game over image
+  // }
 }
 
 //     if return of checkLetters() = true
@@ -259,7 +276,7 @@ const btnClick = (guess) => {
 //   update DOM to change button color
 
 clearBoard();
-// getPrompt();
+getPrompt();
 // btnClick(); // might be needed for scoreboard, but it also might interfere 
 
 //consoles and fn calls for testing

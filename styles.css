@@ -5,6 +5,17 @@ body {
   justify-content: center;
 }
 
+@font-face {
+  font-family: "Western Bang Bang";
+  src: url("./Western-Bang-Bang.woff");
+}
+
+.pageTitle {
+  font-family: "Western Bang Bang";
+  font-size: 50px;
+  margin: 0;
+}
+
 .borderContainer {
   background-color: #fdc029;
   border: #fdc029 25px solid;
@@ -50,31 +61,44 @@ body {
 }
 
 .scoreBoard {
-  margin-top: 15px;
+  margin: 0 0 20px 0; 
   height: 100px;
-  font-size: 30px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  color: white;
+  font-family: "Western Bang Bang";
+  font-size: 65px;
 }
 
 .letterBtn {
+  margin: 2px;
   background-color: #fff3d3;
   color: black;
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   font-size: 27px;
   border-radius: 8px;
-  border: black 5px solid;
+  border: black 3px solid;
   transition: .3s ease;
 }
 
-button:hover {
+.hoverClass:hover, #clearBoardBtn:hover {
   cursor: pointer;
+  background-color: black;
+  border: #fdfa4c 3px solid;
+  color: white;
+}
+
+#clearBoardBtn {
+  font-family: "Western Bang Bang";
+  font-size: 36px;
+  border-radius: 5px;
   background-color: white;
-  border: #fde34c 5px solid;
+  border: black 3px solid;
+  transition: .3s ease;
 }
 
 img {
-  width: 450px;
+  width: 400px;
 }
