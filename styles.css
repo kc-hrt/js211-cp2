@@ -1,27 +1,80 @@
 body {
-  background-color: cornflowerblue;
+  padding-top: 10px;
+  background-color: #fdf3da;
+  display: flex;
+  justify-content: center;
+}
+
+.borderContainer {
+  background-color: #fdc029;
+  border: #fdc029 25px solid;
+  border-radius: 55px;
 }
 
 .mainContainer {
+  padding: 40px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  background-color: black;
+  border: #df861d 35px solid;
+  border-radius: 55px;
+  color: white;
+}
+
+.subContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .playContainer {
+  padding-left: 25px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.letter {
-  background-color: rgb(161, 214, 214);
-  width: 35px;
-  height: 35px;
-  font-size: 20px;
-  border-radius: 5px;
-  border: none;
+.hangmanImage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.alphabet {
+  box-sizing: border-box;
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.scoreBoard {
+  margin-top: 15px;
+  height: 100px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.letterBtn {
+  background-color: #fff3d3;
+  color: black;
+  width: 55px;
+  height: 55px;
+  font-size: 27px;
+  border-radius: 8px;
+  border: black 5px solid;
+  transition: .3s ease;
 }
 
 button:hover {
   cursor: pointer;
+  background-color: white;
+  border: #fde34c 5px solid;
+}
+
+img {
+  width: 450px;
 }

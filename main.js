@@ -183,18 +183,14 @@ const printBoard = () => {
 // };
 
 // fn to update DOM
-const updateHTML = () => { 
+const updateHTML = (guess) => { 
   // h3 = myScoreboard.guessedLetter.join(" ")
   // target element and assign it a variable
-  let guessLetters = document.getElementById('guessedLetters');
+  let playerGuesses = document.getElementById('guessedLetters');
+  playerGuesses.innerText = guess;
 
   // set the innerHTML of that element to the guessedLetters of myScoreboard
-  guessLetters.innerText = myScoreboard.guessedLetters.join(" ");
-  
-  if (gameOver()) {
-    // Alert for gameOver()
-    letters.innerText += 'Game Over' ;
-  }
+  // guessLetters.innerText = myScoreboard.guessedLetters.join(" ");
 };
 
 // fn getScore
@@ -245,8 +241,8 @@ const hangman = (guess) => {
 //   // } 
 // };
 
-const btnClick = () => {
-  document.getElementById('guessedLetters').innerHTML = 'hello';
+const btnClick = (guess) => {
+  updateHTML(guess);
 }
 
 //     if return of checkLetters() = true
