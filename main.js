@@ -92,6 +92,8 @@ const clearBoard = (clearDOM) => {
   let newWord = document.getElementById('guessedLetters');
   newWord.innerText = myScoreboard.guess.join(' ');
   // return myScoreboard;
+
+  clickedBtnStyles();
 };
 
 // fn gameOver
@@ -188,22 +190,6 @@ const updateHTML = () => {
   // set the innerHTML of that element to the guessedLetters of myScoreboard
   let playerGuesses = document.getElementById('guessedLetters');
   playerGuesses.innerText = myScoreboard.guess.join(' ');
-
-  let letterBtns = document.querySelectorAll('.letterBtn');
-  let letterBtnsArr = Array.from(letterBtns);
-
-  // for (let i = 0; i < letterBtns.length; i++) {
-  //   letterBtns[i].addEventListener('click', clickedBtn);
-  // }
-  letterBtnsArr.forEach((button) => {
-    button.addEventListener('click', clickedBtn);
-  })
-
-  function clickedBtn() {
-    this.style.backgroundColor = 'rgba(187, 187, 187, 0.644)';
-    this.style.color = 'lightgrey';
-    this.classList.remove('hoverClass');
-  }
 };
 
 // fn getScore
@@ -254,12 +240,33 @@ const hangman = (guess) => {
 //   // } 
 // };
 
+// on btnClick function from the DOM
 const btnClick = (guess) => {
   hangman(guess);
   updateHTML();
   // if (gameOver()) {
   //   // images function to show game over image
   // }
+}
+
+// function to update button styles after it has been clicked
+const clickedBtnStyles = () => {
+  // target all buttons with the class letterBtns (returns an HTMLcollection)
+  let letterBtns = document.querySelectorAll('.letterBtn');
+  // turn the collection into an array to be able to loop through the buttons
+  let letterBtnsArr = Array.from(letterBtns);
+  
+  // loop through the array and add a click event listener to each of them
+  letterBtnsArr.forEach((button) => {
+    button.addEventListener('click', clickedBtn);
+  })
+  
+  // the function to run on click and update button styles
+  function clickedBtn() {
+    this.style.backgroundColor = '#fff3d37c';
+    this.style.color = 'rgba(0, 0, 0, 0.493)';
+    this.classList.remove('hoverClass');
+  }
 }
 
 //     if return of checkLetters() = true
