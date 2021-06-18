@@ -252,8 +252,8 @@ const btnClick = (guess) => {
 // function to update button styles after it has been clicked
 const clickedBtnStyles = () => {
   // target all buttons with the class letterBtns (returns an HTMLcollection)
-  let letterBtns = document.querySelectorAll('.letterBtn');
   // turn the collection into an array to be able to loop through the buttons
+  let letterBtns = document.querySelectorAll('.letterBtn');
   let letterBtnsArr = Array.from(letterBtns);
   
   // loop through the array and add a click event listener to each of them

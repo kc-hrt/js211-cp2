@@ -80,10 +80,15 @@ body {
   font-size: 27px;
   border-radius: 8px;
   border: black 3px solid;
-  transition: .3s ease;
+  transition: .3s ease-in-out;
 }
 
-.hoverClass:hover, #clearBoardBtn:hover {
+.hoverClass:hover {
+  cursor: pointer;
+  border: #fdfa4c 3px solid;
+}
+
+#clearBoardBtn:hover {
   cursor: pointer;
   background-color: black;
   border: #fdfa4c 3px solid;
