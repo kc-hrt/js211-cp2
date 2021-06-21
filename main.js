@@ -1,9 +1,9 @@
-// const assert = require('assert');
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// // const assert = require('assert');
+// const readline = require('readline');
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 console.clear();
 
 // array of words
@@ -86,23 +86,26 @@ const clearBoard = (clearDOM) => {
   // this is to not interfere with terminal game 
   if (clearDOM === true) {
     // update button color in CSS (or maybe refresh window)
-
+    location.reload()
+    let newWord = document.getElementById('guessedLetters');
+    newWord.innerText = myScoreboard.guess.join(' ');
+    document.getElementById('hangmanPic').src = './img/start.png';
+    clickedBtnStyles();
   };
 
-
-  return myScoreboard;
 };
-
 
 // fn gameOver
 const gameOver = () => {
   // test for win if sixth attempt
   if (myScoreboard.guessesRemaining === 0) {
     // console.log("🎈 :", myScoreboard.numGuesses, " game over");
+    document.getElementById('hangmanImage').src = './img/win.png'
     return true;
     // test for win if guessed letters = word
   } else if (myScoreboard.word === myScoreboard.guess.join("")) {
     // console.log("🏈 ", myScoreboard.guessedLetters.join(""));
+    document.getElementById('hangmanImage').src = './img/win.png'
     return true;
     // else return false, so game can resume
   } else {
@@ -136,10 +139,11 @@ const checkLetters = (letter) => {
   // need to figure out how to test if a there was a letter  correctly 
   //    guessed to return true/fasle so we can update remaing guesses correctly
   // console.log("🌭",myScoreboard.isCorrect , "🌭");
-  console.log();
+  // console.log();
   if (myScoreboard.isCorrect === false) {
     //   update myScoreboard.guessesRemaining with GuessesRemaining - 1
     myScoreboard.guessesRemaining = myScoreboard.guessesRemaining - 1;
+    document.getElementById('hangmanImage').src = './img/' + myScoreboard.guessesRemaining + '.png';
   };
 };
 
@@ -174,24 +178,22 @@ const printBoard = () => {
 
 // fn to update DOM
 const updateHTML = () => {
-  // 
-
-  // h3 = myScoreboard.guessedLetter.join(" ")
-  // if (gameOver()) {
-    //Alert for gameOver()
-  // }
+  // h3 = myScoreboard.guessedLetters.join(" ")
+  // set the innerHTML of that element to the guessedLetters of myScoreboard
+  let playerGuesses = document.getElementById('guessedLetters');
+  playerGuesses.innerText = myScoreboard.guess.join(' ');
 };
-
-// fn getScore
-//     calculate score
-//     return score
 
 // main game
 const hangman = (guess) => {
   //   update myScoreboard.numGuesses with numGuesses + 1
   myScoreboard.numGuesses = myScoreboard.numGuesses + 1;
   // console.log("🌈", myScoreboard.guessesRemaining); // verify
-
+  guess = guess.toUpperCase();
+  if (guess.length > 1) {
+    console.log('womp wamp, please try again');
+    return 'please try again'
+  }
   // call checLetters fn to verify letters and positions, and update class data
   checkLetters(guess);
 
@@ -206,30 +208,45 @@ const hangman = (guess) => {
     clearBoard();
     console.log(" ");
   } 
+  
 };
 
-const getPrompt = () => {
-  printBoard();
-  rl.question("guess: ", (guess) => {
-    hangman(guess);
-    getPrompt();
-  });
-};
+
+// commented out code for console, due to readline code breaking the gui
+//
+// const getPrompt = () => {
+//   printBoard();
+//   rl.question("guess: ", (guess) => {
+//     hangman(guess);
+//     getPrompt();
+//   });
+// };
 
 
 // on btnClick function from the DOM
 const btnClick = (guess) => {
-  updateHTML();
   hangman(guess);
-  // test for gameOver = true, then Alerts user and clears board
-  // if (gameOver()) {
-    // Alert for game over
-
-    // clear board, passing true since DOM interactions
-    // clearBoard(true);
-  // } 
+  updateHTML();
 };
-
+// function to update button styles after it has been clicked
+const clickedBtnStyles = () => {
+  // target all buttons with the class letterBtns (returns an HTMLcollection)
+  // turn the collection into an array to be able to loop through the buttons
+  let letterBtns = document.querySelectorAll('.letterBtn');
+  let letterBtnsArr = Array.from(letterBtns);
+  
+  // loop through the array and add a click event listener to each of them
+  letterBtnsArr.forEach((button) => {
+    button.addEventListener('click', clickedBtn);
+  })
+  
+  // the function to run on click and update button styles
+  function clickedBtn() {
+    this.style.backgroundColor = '#fff3d37c';
+    this.style.color = 'rgba(0, 0, 0, 0.493)';
+    this.classList.remove('hoverClass');
+  }
+}
 
 //     if return of checkLetters() = true
 //        if myScoreboard.guessesremaining > 0
@@ -245,13 +262,13 @@ const btnClick = (guess) => {
 //   update DOM to change button color
 
 clearBoard();
-getPrompt();
+// getPrompt(); // used for console game
 // btnClick(); // might be needed for scoreboard, but it also might interfere 
 
 //consoles and fn calls for testing
 // getWord();
 // console.log("🎰 ", myScoreboard);
-// console.log('🚜 ', clearBoard());
+// console.log('🚜 ', getWord());
 // console.log("🙈 ", gameOver());
 // let l = "B";
 // console.log("🍺 ", checkLetters(l));

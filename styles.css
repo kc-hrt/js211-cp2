@@ -1,0 +1,109 @@
+body {
+  padding-top: 2%;
+  background-color: #fdf3da;
+  display: flex;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: "Western Bang Bang";
+  src: url("./Western-Bang-Bang.woff");
+}
+
+.pageTitle {
+  font-family: "Western Bang Bang";
+  font-size: 50px;
+  margin: 0;
+}
+
+.borderContainer {
+  background-color: #fdc029;
+  border: #fdc029 25px solid;
+  border-radius: 55px;
+}
+
+.mainContainer {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border: #df861d 35px solid;
+  border-radius: 55px;
+  color: white;
+}
+
+.subContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.playContainer {
+  padding-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.hangmanImage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.alphabet {
+  box-sizing: border-box;
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.scoreBoard {
+  margin: 0 0 20px 0; 
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: white;
+  font-family: "Western Bang Bang";
+  font-size: 65px;
+}
+
+.letterBtn {
+  margin: 2px;
+  background-color: #fff3d3;
+  color: black;
+  width: 50px;
+  height: 50px;
+  font-size: 27px;
+  border-radius: 8px;
+  border: black 3px solid;
+  transition: .3s ease-in-out;
+}
+
+.hoverClass:hover {
+  cursor: pointer;
+  border: #fdfa4c 3px solid;
+}
+
+#clearBoardBtn:hover {
+  cursor: pointer;
+  background-color: black;
+  border: #fdfa4c 3px solid;
+  color: white;
+}
+
+#clearBoardBtn {
+  font-family: "Western Bang Bang";
+  font-size: 36px;
+  border-radius: 5px;
+  background-color: white;
+  border: black 3px solid;
+  transition: .3s ease;
+}
+
+img {
+  width: 400px;
+}
