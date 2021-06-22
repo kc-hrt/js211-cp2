@@ -63,7 +63,8 @@ let words = [
   "BUCKAROO",
   "INDIANS",
   "BRONCO",
-  "OUTLAWS"
+  "OUTLAWS",
+  "HUCKLEBERRY"
 ];
 
 // class called scoreboard
