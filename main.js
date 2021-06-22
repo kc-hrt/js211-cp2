@@ -8,20 +8,62 @@ console.clear();
 
 // array of words
 let words = [
-  "ABLE",
-  "ABOUT",
-  "ACCOUNT",
-  "ACID",
-  "ACROSS",
-  "ACT",
-  "ADDITION",
-  "ADJUSTMENT",
-  "ADVERTISEMENT",
-  "AFTER",
-  "AGAIN",
-  "AGAINST",
-  "AGREEMENT",
-  "AIR"
+  "CABOOSE",
+  "WAGON",
+  "HORSE",
+  "CALIFORNIA",
+  "BADLANDS",
+  "BUCKAROO",
+  "CHAPS",
+  "COWBOY",
+  "COWGIRL",
+  "DUDE",
+  "RANCH",
+  "GOLDMINE",
+  "STAGECOACH",
+  "WEST",
+  "WRANGLER",
+  "PLAINS",
+  "OREGON",
+  "FRONTIER",
+  "RAILWAY",
+  "BUFFALO",
+  "MISSION",
+  "OUTLAWS",
+  "GUNSLINGER",
+  "PONEER",
+  "GREENHORN",
+  "HASS",
+  "SALOON",
+  "WHISKEY",
+  "RAILROAD",
+  "TERRITORY",
+  "HOMESTEAD",
+  "RODEO",
+  "TRAIL",
+  "TOWN",
+  "CORRAL",
+  "LASSO",
+  "BANDANA",
+  "SHERIFF",
+  "CAMPFIRE",
+  "WRANGLER",
+  "JEANS",
+  "COWPOKE",
+  "COYOTE",
+  "KNIFE",
+  "GUN",
+  "STAMPEDE",
+  "LEATHER",
+  "SETTLEMENT",
+  "LONGHORN",
+  "WILD",
+  "RATTLELSNAKE",
+  "MUSTANG",
+  "BUCKAROO",
+  "INDIANS",
+  "BRONCO",
+  "OUTLAWS"
 ];
 
 // class called scoreboard
@@ -71,7 +113,7 @@ const getWord = () => {
   for (let i = 0; i < myScoreboard.word.length; i++) {
     myScoreboard.guess.push("_");
   }
-  // console.log('🎸', myScoreboard.word);
+  console.log('🎸', myScoreboard.word);
 };
 
 
@@ -86,11 +128,13 @@ const clearBoard = (clearDOM) => {
   // this is to not interfere with terminal game 
   if (clearDOM === true) {
     // update button color in CSS (or maybe refresh window)
-    location.reload()
-    let newWord = document.getElementById('guessedLetters');
-    newWord.innerText = myScoreboard.guess.join(' ');
+    // location.reload()
+    
     document.getElementById('hangmanPic').src = './img/start.png';
-    clickedBtnStyles();
+    // clickedBtnStyles();
+    updateHTML();
+    let playerGuesses = document.getElementById('guessedLetters');
+    playerGuesses.innerText = myScoreboard.guess.join(' ');
   };
 
 };
@@ -98,16 +142,16 @@ const clearBoard = (clearDOM) => {
 // fn gameOver
 const gameOver = () => {
   // test for win if sixth attempt
-  if (myScoreboard.guessesRemaining === 0) {
-    // console.log("🎈 :", myScoreboard.numGuesses, " game over");
-    document.getElementById('hangmanImage').src = './img/win.png'
-    return true;
-    // test for win if guessed letters = word
-  } else if (myScoreboard.word === myScoreboard.guess.join("")) {
-    // console.log("🏈 ", myScoreboard.guessedLetters.join(""));
-    document.getElementById('hangmanImage').src = './img/win.png'
+  if (myScoreboard.word === myScoreboard.guess.join("")) {
+    // console.log("🏈 ", myScoreboard.numGuesses);
+    document.getElementById('hangmanPic').src = './img/win.png'
     return true;
     // else return false, so game can resume
+  } else if (myScoreboard.guessesRemaining === 0) {
+    // console.log("🎈 :", myScoreboard.numGuesses, " game over");
+    document.getElementById('hangmanPic').src = './img/gameOver.png'
+    return true;
+    // test for win if guessed letters = word
   } else {
     // console.log("🛹 ", myScoreboard.guessedLetters.join(""));
     return false;
@@ -119,9 +163,6 @@ const gameOver = () => {
 // fn to check if the user iput letter matches the WordArr & update guess and guessedLetters
 const checkLetters = (letter) => {
   myScoreboard.isCorrect = false // initialize to false by default
-  // let arr = myScoreboard.wordArr;
-  // const y = false;
-  // console.log(y);
   // update guessed letters array
   myScoreboard.guessedLetters.push(letter);
   // loop through the word arrary for a match of the guessed letter
@@ -131,8 +172,6 @@ const checkLetters = (letter) => {
     if (x === letter) {
       myScoreboard.guess[i] = x; // works with multiple instances of letter
       myScoreboard.isCorrect = true;
-      // return true;
-      // console.log(x, " was a correct letter");
     }
   });
 
@@ -143,7 +182,8 @@ const checkLetters = (letter) => {
   if (myScoreboard.isCorrect === false) {
     //   update myScoreboard.guessesRemaining with GuessesRemaining - 1
     myScoreboard.guessesRemaining = myScoreboard.guessesRemaining - 1;
-    document.getElementById('hangmanImage').src = './img/' + myScoreboard.guessesRemaining + '.png';
+    console.log('🌵', myScoreboard.guessesRemaining)
+    document.getElementById('hangmanPic').src = './img/' + myScoreboard.guessesRemaining + '-remain.png';
   };
 };
 
@@ -178,7 +218,6 @@ const printBoard = () => {
 
 // fn to update DOM
 const updateHTML = () => {
-  // h3 = myScoreboard.guessedLetters.join(" ")
   // set the innerHTML of that element to the guessedLetters of myScoreboard
   let playerGuesses = document.getElementById('guessedLetters');
   playerGuesses.innerText = myScoreboard.guess.join(' ');
@@ -205,7 +244,8 @@ const hangman = (guess) => {
     console.log(" ");
     console.log(" ");
     console.log(" < <  New Game  > >");
-    clearBoard();
+    // clearBoard();
+    
     console.log(" ");
   } 
   
@@ -226,8 +266,15 @@ const hangman = (guess) => {
 // on btnClick function from the DOM
 const btnClick = (guess) => {
   hangman(guess);
-  updateHTML();
+  if (gameOver()) {
+    let playerGuesses = document.getElementById('guessedLetters');
+    playerGuesses.innerText = myScoreboard.wordArr.join(' ');
+  } else {
+    updateHTML();
+  }
 };
+
+
 // function to update button styles after it has been clicked
 const clickedBtnStyles = () => {
   // target all buttons with the class letterBtns (returns an HTMLcollection)
@@ -242,7 +289,7 @@ const clickedBtnStyles = () => {
   
   // the function to run on click and update button styles
   function clickedBtn() {
-    this.style.backgroundColor = '#fff3d37c';
+    this.style.backgroundColor = '#e41518';
     this.style.color = 'rgba(0, 0, 0, 0.493)';
     this.classList.remove('hoverClass');
   }
@@ -261,7 +308,7 @@ const clickedBtnStyles = () => {
 //   update DOM hangman image
 //   update DOM to change button color
 
-clearBoard();
+getWord();
 // getPrompt(); // used for console game
 // btnClick(); // might be needed for scoreboard, but it also might interfere 
 
