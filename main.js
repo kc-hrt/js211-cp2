@@ -265,6 +265,7 @@ const hangman = (guess) => {
 
 // on btnClick function from the DOM
 const btnClick = (guess) => {
+ 
   hangman(guess);
   if (gameOver()) {
     let playerGuesses = document.getElementById('guessedLetters');
